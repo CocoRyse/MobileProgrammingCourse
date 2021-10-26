@@ -32,11 +32,9 @@ export const getAllPeople = async (updateHandler) => {
       return;
     }
 
-    setImmediate(async () => {
-      results.push(await getPeopleById(id));
-      updateHandler(results);
-      loop(id + 1);
-    });
+    results.push(await getPeopleById(id));
+    updateHandler(results);
+    loop(id + 1);
   };
   loop(results.length + 1);
 };
