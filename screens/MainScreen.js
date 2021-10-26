@@ -46,11 +46,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   header: {
-    fontSize: 30,
+    fontSize: 25,
     marginBottom: 15,
+    fontWeight: "600",
   },
   text: {
     fontSize: 25,
-    margin: 15,
+    paddingBottom: 25,
+    minWidth: 300,
   },
 });
