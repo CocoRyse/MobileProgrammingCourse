@@ -1,43 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { ScreensMapping } from "./ScreensMapping";
 
-const MainScreen = () => {
-  const [planets, setPlanets] = useState();
+// const buttons = [{ key: "Planets" }, { key: "People" }, { key: "Films" }];
+const buttons = Object.keys(ScreensMapping).map((item) => ({ key: item }));
 
-  const fetchPlanets = async () => {
-    try {
-      const response = await fetch("http://swapi.dev/api/planets/");
-      const planetsJson = await response.json();
-      const planets = planetsJson.results.map((planet, index) => {
-        return {
-          key: index.toString(), // необходимо для того, чтобы не было проблем с открисовкой списка
-          ...planet,
-        };
-      });
-      setPlanets(planets);
-    } catch {
-      // Хорошо бы хендлить ошибку по-человечески, но это потом
-      console.error("Не повезло, не повезло");
-    }
+const MainScreen = ({ navigation }) => {
+  const handleListItemPress = (touchedItemData) => {
+    navigation.navigate(touchedItemData.key);
   };
 
-  // Хук useEffect позволяет управлять
-  // различными сопутствующими действиями в функциональном компоненте —
-  // то, что называется побочными эффектами
-  // В нашем случае это вызов метода SWAPI
-  // https://ru.reactjs.org/docs/hooks-reference.html#useeffect
-  useEffect(() => {
-    fetchPlanets();
-  }, []);
-
   const renderListItem = ({ item }) => {
-    return <Text style={styles.text}>{item.name}</Text>;
+    return (
+      <TouchableWithoutFeedback onPress={() => handleListItemPress(item)}>
+        <Text style={styles.text}>{item.key}</Text>
+      </TouchableWithoutFeedback>
+    );
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>swapi.dev/api/planets/</Text>
-      <FlatList data={planets} renderItem={renderListItem}></FlatList>
+      <Text style={styles.header}>Выбирети на какой экран хотите перейти</Text>
+      <FlatList data={buttons} renderItem={renderListItem}></FlatList>
     </View>
   );
 };
