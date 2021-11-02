@@ -38,3 +38,5 @@ export const getAllPeople = async (updateHandler) => {
   };
   loop(results.length + 1);
 };
+
+export const getPlanets = async () => {};

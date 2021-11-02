@@ -2,33 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { getAllPeople } from "../services/swapi";
 
-const MainScreen = () => {
-  const [people, setPeople] = useState();
-  useEffect(() => {
-    const handlePeopleUpdate = (peoples) => {
-      const people = peoples.map((item, index) => {
-        return {
-          key: index.toString(),
-          ...item,
-        };
-      });
-      setPeople(people);
-    };
-
-    getAllPeople(handlePeopleUpdate);
-  }, []);
-
-  const renderListItem = ({ item }) => {
-    return <Text style={styles.text}>{item.name}</Text>;
-  };
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Список персонажей Star Wars</Text>
-      <FlatList data={people} renderItem={renderListItem}></FlatList>
-    </View>
-  );
-};
+const MainScreen = () => {};
 
 export default MainScreen;
 
